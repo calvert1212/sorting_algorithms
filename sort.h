@@ -26,4 +26,6 @@ void quick_sort(int *array, size_t size);
 void swap(int *a, int *b);
 int nodeDex(listint_t *node);
 void nodeLeft(listint_t **head, listint_t *node);
+void helper1(int *array, int l, int r, size_t s);
+int helper2(int *array, int l, int r, size_t s);
 #endif

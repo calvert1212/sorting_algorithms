@@ -1,45 +1,67 @@
 #include "sort.h"
 /**
- * quick_sort - sorts array using quickSort
- * @array: array to sort
- * @size: size of array
+ * quick_sort - uses Lomuto method to quick sort integer array
+ * @array: pointer to the array
+ * @s: size of the array
  * Return: void
  */
-void quick_sort(int *array, size_t size)
+void quick_sort(int *array, size_t s)
 {
-	int ls = 0;
-	int *p = (array + size - 1), *j = array, *i = (j - 1);
-	if (array == NULL || size < 2)
+	if (!array || s < 2)
 		return;
-
-	for (j = array; j <= (p - 1); j++)
-	{
-		if (*j <= *p)
-		{
-			i++;
-			ls++;
-			swap(i, j);
-			print_array(array, size);
-		}
-	}
-	swap(i + 1, p);
-	print_array(array, size);
-	if (ls > 1)
-		quick_sort(array, ls);
-	if (size - (ls + 1) > 1)
-		quick_sort(i + 2, size - (ls + 1));
+	helper1(array, 0, (s - 1), s);
 }
 
 /**
- * numSwap - Swaps two numbers helper
- * @a: First number
- * @b: Second number
+ * helper1 - recursive helper function
+ * @array: pointer to the array
+ * @l: 0 index
+ * @r: last index
+ * @s: size of the array
  * Return: void
  */
-void swap(int *a, int *b)
+void helper1(int *array, int l, int r, size_t s)
 {
-	int c;
-	c = *a;
-	*a = *b;
-	*b = c;
+	int i;
+
+	if (l < r)
+	{
+		i = helper2(array, l, r, s);
+		helper1(array, l, i - 1, s);
+		helper1(array, i + 1, r, s);
+	}
+}
+
+/**
+ * helper2 - helper function
+ * @array: array pointer
+ * @l: node 0 index
+ * @r: final index
+ * @size: size of the array
+ * Return: index
+ */
+int helper2(int *array, int l, int r, size_t s)
+{
+	int pivot = array[r];
+	int i = l;
+	int j, temp = 0;
+
+	for (j = l; j < r; j++)
+	{
+		if (array[j] < pivot)
+		{
+			temp = array[i];
+			array[i] = array[j];
+			array[j] = temp;
+			if (temp != array[i])
+				print_array(array, s);
+			i++;
+		}
+	}
+	temp = array[i];
+	array[i] = array[r];
+	array[r] = temp;
+	if (temp != array[i])
+		print_array(array, s);
+	return (i);
 }
