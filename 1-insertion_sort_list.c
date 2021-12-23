@@ -7,6 +7,7 @@
 void insertion_sort_list(listint_t **list)
 {
 	listint_t *x, *m;
+
 	x = (*list)->next;
 	if (list == NULL || *list == NULL)
 		return;
@@ -37,6 +38,7 @@ void insertion_sort_list(listint_t **list)
 void nodeLeft(listint_t **head, listint_t *node)
 {
 	listint_t *l = node->prev, *r = node->next;
+
 	if (l != NULL)
 	{
 		node->prev = l->prev;
